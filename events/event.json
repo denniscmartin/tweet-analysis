@@ -1,7 +1,7 @@
 {
   "body": "{\"message\": \"hello world\"}",
-  "resource": "/hello",
-  "path": "/hello",
+  "resource": "/sentiment",
+  "path": "/sentiment",
   "httpMethod": "GET",
   "isBase64Encoded": false,
   "queryStringParameters": {

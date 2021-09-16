@@ -1,0 +1,11 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "tweet-analysis"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-696e2vcoot9k"
+s3_prefix = "tweet-analysis"
+region = "eu-west-2"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
+image_repositories = []
