@@ -11,6 +11,17 @@ The application uses several AWS resources, including Lambda functions and an AP
 These resources are defined in the `template.yaml` file in this project. You can update the template to add AWS 
 resources through the same deployment process that updates your application code.
 
+## Secrets
+There are some process that must be made manually, such us secrets creation in AWS Secrets Manager. Before deploying
+the application do the following: 
+
+**Create Twitter keys**:   
+- Go to AWS Secrets Manager Console
+- Create `Other type of secrets`
+- Create two keys called `KEY` and `BEARER`
+- Add the values for each one
+- Name the secret `tweet-analysis-keys`
+
 ## Deploy the application
 
 The Serverless Application Model Command Line Interface (SAM CLI) is an extension of the AWS CLI that adds functionality

@@ -157,14 +157,14 @@ Resources:
       CodeUri: src/
       Handler: handlers/sentiment.get_tweet_sentiment
       Runtime: python3.9
-      Tags:
-        Name: "tweet-analysis::get-tweet-sentiment-function"
       Events:
         CallGetTweetSentiment:
           Type: Api
           Properties:
             Path: /sentiment
             Method: get
+      Tags:
+        Name: "tweet-analysis::get-tweet-sentiment-function"
 
   ##
   ### END FUNCTION CONFIGURATION ###
