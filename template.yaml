@@ -11,10 +11,77 @@ Globals:
   Api:
     Auth:
       ApiKeyRequired: true
-      UsagePlan:
-        CreateUsagePlan: PER_API
 
 Resources:
+  ##
+  ### START API GATEWAY CONFIGURATION ###
+  ##
+
+  # Create Api version v1
+  V1Stage:
+    Type: AWS::ApiGateway::Stage
+    Properties:
+      DeploymentId: !Ref V1StageDeployment
+      Description: Api version 1
+      RestApiId: !Ref ServerlessRestApi
+      StageName: v1
+      Tags:
+        - Key: "application-id"
+          Value: "tweet-analysis"
+        - Key: "Name"
+          Value: "tweet-analysis::rest-api::v1"
+
+  # Deploy Api version 1
+  V1StageDeployment:
+    Type: AWS::ApiGateway::Deployment
+    Properties:
+      Description: Deployment of Api version 1
+      RestApiId: !Ref ServerlessRestApi
+
+  # Create usage plan
+  PaidUsagePlan:
+    Type: AWS::ApiGateway::UsagePlan
+    Properties:
+      ApiStages:
+        - ApiId: !Ref ServerlessRestApi
+          Stage: !Ref V1Stage
+      Description: Api usage plan
+      Quota:
+        Limit: 10000
+        Period: MONTH
+      Throttle:
+        BurstLimit: 100
+        RateLimit: 20
+      UsagePlanName: PaidUsagePlan
+      Tags:
+        - Key: "application-id"
+          Value: "tweet-analysis"
+        - Key: "Name"
+          Value: "tweet-analysis::rest-api::paid-usage-plan"
+
+  # Create Api key
+  PaidApiKey:
+    Type: AWS::ApiGateway::ApiKey
+    Properties:
+      Description: Api key for paid usage plan
+      Enabled: true
+      StageKeys:
+        - RestApiId: !Ref ServerlessRestApi
+          StageName: !Ref V1Stage
+      Tags:
+        - Key: "application-id"
+          Value: "tweet-analysis"
+        - Key: "Name"
+          Value: "tweet-analysis::rest-api::key"
+
+  # Attach the created api key to the usage plan
+  PaidUsagePlanKey:
+    Type: AWS::ApiGateway::UsagePlanKey
+    Properties:
+      KeyId: !Ref PaidApiKey
+      KeyType: API_KEY
+      UsagePlanId: !Ref PaidUsagePlan
+
   # Create custom domain in Api Gateway
   Domain:
     Type: AWS::ApiGateway::DomainName
@@ -30,6 +97,14 @@ Resources:
           Value: "tweet-analysis"
         - Key: "Name"
           Value: "tweet-analysis::api-custom-domain"
+
+  ##
+  ### END API CONFIGURATION ###
+  ##
+
+  ##
+  ### START DOMAIN CONFIGURATION ###
+  ##
 
   # Create domain SSL certificate
   DomainCertificate:
@@ -64,7 +139,15 @@ Resources:
     Properties:
       DomainName: !Ref Domain
       RestApiId: !Ref ServerlessRestApi
-      Stage: Prod
+      Stage: v1
+
+  ##
+  ### END DOMAIN CONFIGURATION ###
+  ##
+
+  ##
+  ### START FUNCTION CONFIGURATION ###
+  ##
 
   # Define lambda functions
   GetTweetSentimentFunction:
@@ -82,3 +165,7 @@ Resources:
           Properties:
             Path: /sentiment
             Method: get
+
+  ##
+  ### END FUNCTION CONFIGURATION ###
+  ##
