@@ -20,12 +20,12 @@ def get_tweet_sentiment(event, context):
     bearer_token = twitter_key['BEARER']
     twitter_header = {"Authorization": "Bearer {}".format(bearer_token)}  # Auth header
     twitter_response = requests.request("GET", twitter_url, headers=twitter_header)
-    print(twitter_response.json())
 
     return {
         "statusCode": 200,
         "body": json.dumps({
             "message": "hello world",
+            "tweets": twitter_response.json()
         }),
     }
 

@@ -157,6 +157,10 @@ Resources:
       CodeUri: src/
       Handler: handlers/sentiment.get_tweet_sentiment
       Runtime: python3.9
+      Policies:
+        - AWSSecretsManagerGetSecretValuePolicy:
+            SecretArn:
+              arn:aws:secretsmanager:eu-west-2:339008578167:secret:tweet-analysis-keys-gKo6DQ
       Events:
         CallGetTweetSentiment:
           Type: Api
