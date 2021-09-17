@@ -152,13 +152,13 @@ Resources:
   ##
 
   # Define lambda functions
-  GetTweetSentimentFunction:
+  TweetSentimentHandler:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: GetTweetSentimentFunction
       Description: Fetch tweets and analyse sentiment using AWS Comprehend
       CodeUri: src/
-      Handler: handlers/sentiment.get_tweet_sentiment
+      Handler: handlers/tweet_sentiment_handler.get_tweet_sentiment
       Runtime: python3.9
       Policies:
         - AWSSecretsManagerGetSecretValuePolicy:

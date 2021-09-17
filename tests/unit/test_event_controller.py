@@ -1,8 +1,8 @@
 from unittest import TestCase
-from dependencies.python.event_controller import *
+from dependencies.python.event_controller import SentimentFunctionEvent
 
 
-class TestUnwrapStringParameters(TestCase):
+class TestSentimentFunctionEvent(TestCase):
 
     @staticmethod
     def create_event(query_string_parameter):
@@ -16,7 +16,7 @@ class TestUnwrapStringParameters(TestCase):
 
         return event
 
-    def test_unwrap_sentiment_string_parameters(self):
+    def test_unwrap_parameters(self):
         test_cases = {
             '1': None,
             '2': {'twitterUser': ''},
@@ -37,7 +37,7 @@ class TestUnwrapStringParameters(TestCase):
 
         for test_number in test_cases:
             event = self.create_event(test_cases[test_number])
-            twitter_user, number_of_tweets = unwrap_sentiment_string_parameters(event)
+            twitter_user, number_of_tweets = SentimentFunctionEvent.unwrap_parameters(event)
             expected_twitter_user = expected_results[test_number]['twitterUser']
             expected_number_of_tweets = expected_results[test_number]['numberOfTweets']
 

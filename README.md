@@ -1,10 +1,11 @@
 # tweet-analysis
+Serverless application to fetch & analyse tweets using AWS Comprehend.
 
 ## Structure
 
 - src - Code for the application's Lambda function.
 - events - Invocation events that you can use to invoke the function.
-- tests - Unit tests for the application code. 
+- tests - Unit and integration tests for the application code. 
 - template.yaml - A template that defines the application's AWS resources.
 
 The application uses several AWS resources, including Lambda functions and an API Gateway API. 
