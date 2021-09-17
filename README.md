@@ -80,7 +80,7 @@ that the function receives from the event source. Test events are included in th
 Run functions locally and invoke them with the `sam local invoke` command.
 
 ```bash
-tweet-analysis$ sam local invoke HelloWorldFunction --event events/event.json
+tweet-analysis$ sam local invoke HelloWorldFunction --event events/sentiment_event.json
 ```
 
 The SAM CLI can also emulate your application's API. Use the `sam local start-api` to run the API locally on port 3000.

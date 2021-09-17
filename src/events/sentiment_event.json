@@ -1,0 +1,10 @@
+{
+  "resource": "/sentiment",
+  "path": "/sentiment",
+  "httpMethod": "GET",
+  "isBase64Encoded": false,
+  "queryStringParameters": {
+    "twitterUser": "dennisconcep",
+    "numberOfTweets": "50"
+  }
+}
