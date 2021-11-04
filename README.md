@@ -1,4 +1,4 @@
-# tweet-analysis
+# tweet-analysis [ARCHIVED]
 Serverless application to fetch & analyse tweets using AWS Comprehend.
 
 ## Structure
